@@ -35,13 +35,13 @@ const features = [
   },
   {
     icon: Zap,
-    title: "CASCADE\u2122 Delay Propagation",
+    title: "CascadeSync\u2122 Delay Propagation",
     description:
       "One delay auto-updates all downstream customers. No manual rescheduling needed.",
   },
   {
     icon: CloudSun,
-    title: "Weather-Aware Scheduling",
+    title: "WeatherSync\u2122 Scheduling",
     description:
       "Automatic weather alerts that notify customers of potential delays before they happen.",
   },
