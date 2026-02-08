@@ -218,19 +218,19 @@ const comparisonFeatures = [
 ]
 
 const packs = [
-  { size: "250", price: "$100", perNotification: "$0.40" },
-  { size: "500", price: "$175", perNotification: "$0.35" },
-  { size: "1,000", price: "$320", perNotification: "$0.32" },
-  { size: "2,500", price: "$750", perNotification: "$0.30" },
-  { size: "5,000", price: "$1,400", perNotification: "$0.28" },
-  { size: "10,000", price: "$2,500", perNotification: "$0.25" },
+  { size: "250", price: "$55", perNotification: "$0.22" },
+  { size: "500", price: "$100", perNotification: "$0.20" },
+  { size: "1,000", price: "$180", perNotification: "$0.18" },
+  { size: "2,500", price: "$400", perNotification: "$0.16" },
+  { size: "5,000", price: "$700", perNotification: "$0.14" },
+  { size: "10,000", price: "$1,200", perNotification: "$0.12" },
 ]
 
 const faqs = [
   {
     question: "How does billing work?",
     answer:
-      "You're billed monthly based on your chosen plan. Your notification allotment resets each billing cycle. If you need more, notification packs can be added at any time and never expire.",
+      "You're billed monthly based on your chosen plan. Your notification allotment resets each billing cycle. If you need more, notification packs can be added at any time and never expire. Save 20% with annual billing.",
   },
   {
     question: "What counts as a notification?",
@@ -282,15 +282,13 @@ const faqs = [
 function FeatureValue({ value }: { value: boolean | string }) {
   if (typeof value === "string") {
     return (
-      <span className="font-mono text-sm font-semibold text-foreground">
-        {value}
-      </span>
+      <span className="text-sm font-medium text-foreground">{value}</span>
     )
   }
   if (value) {
-    return <Check className="mx-auto h-4 w-4 text-primary" />
+    return <Check className="mx-auto h-5 w-5 text-emerald-500" />
   }
-  return <Minus className="mx-auto h-4 w-4 text-muted-foreground/40" />
+  return <X className="mx-auto h-5 w-5 text-muted-foreground/30" />
 }
 
 export function PricingContent() {
@@ -299,288 +297,178 @@ export function PricingContent() {
   return (
     <>
       {/* Hero */}
-      <Section className="pt-32 pb-16 md:pt-40 md:pb-20">
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
+      <Section className="pt-32 pb-16">
         <ScrollReveal>
           <div className="mx-auto max-w-3xl text-center">
-            <span className="mb-4 inline-block rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
+            <p className="text-sm font-medium uppercase tracking-wider text-emerald-500 mb-4">
               Pricing
-            </span>
-            <h1 className="text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+            </p>
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
               Simple, Transparent Pricing
             </h1>
-            <p className="mt-6 text-pretty text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-6 text-lg text-muted-foreground">
               Start free. Scale as you grow. No hidden fees, no long-term
-              contracts. Every plan includes a free trial to make sure
-              ArriveSync is right for you.
+              contracts. Every plan includes a free trial to make sure ArriveSync
+              is right for you.
             </p>
           </div>
         </ScrollReveal>
       </Section>
 
       {/* Pricing tiers */}
-      <Section className="border-t border-border pt-0 -mt-8">
-        <StaggerContainer
-          className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
-          staggerDelay={0.1}
-        >
+      <Section className="pb-24">
+        <StaggerContainer className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-4">
           {tiers.map((tier) => (
-            <StaggerItem key={tier.name}>
-              <div
-                className={cn(
-                  "relative flex h-full flex-col rounded-xl border p-6 transition-all hover:shadow-lg",
-                  tier.highlighted
-                    ? "border-primary bg-primary/5 shadow-lg shadow-primary/10 hover:shadow-primary/20"
-                    : "border-border bg-card hover:border-primary/30 hover:shadow-primary/5"
-                )}
-              >
-                {tier.highlighted && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
+            <StaggerItem
+              key={tier.name}
+              className={cn(
+                "relative rounded-2xl border p-8",
+                tier.highlighted
+                  ? "border-emerald-500/50 bg-emerald-500/5 shadow-lg shadow-emerald-500/10"
+                  : "border-border bg-card"
+              )}
+            >
+              {tier.highlighted && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                  <span className="rounded-full bg-emerald-500 px-3 py-1 text-xs font-medium text-white">
                     Most Popular
-                  </div>
-                )}
-                <h3 className="text-lg font-semibold text-foreground">
-                  {tier.name}
-                </h3>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  {tier.description}
-                </p>
-                <div className="mt-4 flex items-baseline gap-1">
-                  <span className="font-mono text-4xl font-bold text-foreground">
-                    {tier.price}
-                  </span>
-                  <span className="text-sm text-muted-foreground">
-                    {tier.period}
                   </span>
                 </div>
-                <ul className="mt-6 flex flex-1 flex-col gap-3">
-                  {tier.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-2">
-                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                      <span className="text-sm text-muted-foreground">
-                        {feature}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href="/#waitlist"
-                  className={cn(
-                    "mt-6 inline-flex items-center justify-center rounded-lg px-4 py-2.5 text-sm font-semibold transition-all",
-                    tier.highlighted
-                      ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm"
-                      : "border border-border bg-secondary text-secondary-foreground hover:bg-secondary/80"
-                  )}
-                >
-                  Get Early Access
-                </Link>
+              )}
+              <h3 className="text-lg font-semibold">{tier.name}</h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {tier.description}
+              </p>
+              <div className="mt-6">
+                <span className="text-4xl font-bold">{tier.price}</span>
+                <span className="text-muted-foreground">{tier.period}</span>
               </div>
+              <ul className="mt-8 space-y-3">
+                {tier.features.map((feature) => (
+                  <li key={feature} className="flex items-start gap-3">
+                    <Check className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" />
+                    <span className="text-sm">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/#waitlist"
+                className={cn(
+                  "mt-8 block rounded-lg px-4 py-2.5 text-center text-sm font-medium transition-colors",
+                  tier.highlighted
+                    ? "bg-emerald-500 text-white hover:bg-emerald-600"
+                    : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                )}
+              >
+                Get Started
+              </Link>
             </StaggerItem>
           ))}
         </StaggerContainer>
       </Section>
 
       {/* Feature comparison */}
-      <Section className="border-t border-border" pattern="dots">
+      <Section className="pb-24">
         <ScrollReveal>
-          <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+          <div className="mx-auto max-w-3xl text-center mb-12">
+            <h2 className="text-3xl font-bold tracking-tight">
               Feature Comparison
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              See exactly what{"'"}s included in each plan.
+            <p className="mt-4 text-muted-foreground">
+              See exactly what{"\'"}s included in each plan.
             </p>
           </div>
         </ScrollReveal>
-
-        <ScrollReveal delay={0.15}>
-          <div className="mt-12 overflow-x-auto">
-            <table className="w-full min-w-[640px]">
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="py-4 pr-4 text-left text-sm font-medium text-muted-foreground">
-                    Feature
-                  </th>
-                  <th className="px-4 py-4 text-center text-sm font-semibold text-foreground">
-                    Free
-                  </th>
-                  <th className="px-4 py-4 text-center text-sm font-semibold text-primary">
-                    Pro
-                  </th>
-                  <th className="px-4 py-4 text-center text-sm font-semibold text-foreground">
-                    Business
-                  </th>
-                  <th className="px-4 py-4 text-center text-sm font-semibold text-foreground">
-                    Enterprise
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {comparisonFeatures.map((category) => (
-                  <>
-                    <tr key={`cat-${category.category}`}>
-                      <td
-                        colSpan={5}
-                        className="pt-6 pb-2 text-xs font-semibold uppercase tracking-wider text-primary"
-                      >
-                        {category.category}
-                      </td>
+        <div className="mx-auto max-w-5xl overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b">
+                <th className="py-4 pr-4 text-left font-medium">Feature</th>
+                <th className="px-4 py-4 text-center font-medium">Free</th>
+                <th className="px-4 py-4 text-center font-medium">Pro</th>
+                <th className="px-4 py-4 text-center font-medium">Business</th>
+                <th className="px-4 py-4 text-center font-medium">Enterprise</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparisonFeatures.map((category) => (
+                <>
+                  <tr key={category.category} className="border-b bg-muted/30">
+                    <td colSpan={5} className="py-3 px-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                      {category.category}
+                    </td>
+                  </tr>
+                  {category.features.map((feature) => (
+                    <tr key={feature.name} className="border-b">
+                      <td className="py-3 pr-4 text-sm">{feature.name}</td>
+                      <td className="px-4 py-3 text-center"><FeatureValue value={feature.free} /></td>
+                      <td className="px-4 py-3 text-center"><FeatureValue value={feature.pro} /></td>
+                      <td className="px-4 py-3 text-center"><FeatureValue value={feature.business} /></td>
+                      <td className="px-4 py-3 text-center"><FeatureValue value={feature.enterprise} /></td>
                     </tr>
-                    {category.features.map((feature) => (
-                      <tr
-                        key={feature.name}
-                        className="border-b border-border/50"
-                      >
-                        <td className="py-3 pr-4 text-sm text-muted-foreground">
-                          {feature.name}
-                        </td>
-                        <td className="px-4 py-3 text-center">
-                          <FeatureValue value={feature.free} />
-                        </td>
-                        <td className="px-4 py-3 text-center">
-                          <FeatureValue value={feature.pro} />
-                        </td>
-                        <td className="px-4 py-3 text-center">
-                          <FeatureValue value={feature.business} />
-                        </td>
-                        <td className="px-4 py-3 text-center">
-                          <FeatureValue value={feature.enterprise} />
-                        </td>
-                      </tr>
-                    ))}
-                  </>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </ScrollReveal>
+                  ))}
+                </>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </Section>
 
       {/* Notification packs */}
-      <Section className="border-t border-border">
+      <Section className="pb-24">
         <ScrollReveal>
-          <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-              Notification Packs
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Need more notifications? Packs never expire and can be added to
-              any paid plan.
-            </p>
+          <div className="mx-auto max-w-3xl text-center mb-12">
+            <h2 className="text-3xl font-bold tracking-tight">Notification Packs</h2>
+            <p className="mt-4 text-muted-foreground">Need more notifications? Packs never expire and can be added to any paid plan.</p>
           </div>
         </ScrollReveal>
-
-        <StaggerContainer
-          className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
-          staggerDelay={0.08}
-        >
+        <StaggerContainer className="mx-auto grid max-w-4xl gap-4 sm:grid-cols-3 lg:grid-cols-6">
           {packs.map((pack) => (
-            <StaggerItem key={pack.size}>
-              <div className="flex items-center justify-between rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
-                <div>
-                  <p className="font-mono text-2xl font-bold text-foreground">
-                    {pack.size}
-                  </p>
-                  <p className="text-sm text-muted-foreground">notifications</p>
-                </div>
-                <div className="text-right">
-                  <p className="font-mono text-xl font-bold text-primary">
-                    {pack.price}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {pack.perNotification}/ea
-                  </p>
-                </div>
-              </div>
+            <StaggerItem key={pack.size} className="rounded-xl border border-border bg-card p-4 text-center">
+              <div className="text-2xl font-bold">{pack.size}</div>
+              <div className="text-xs text-muted-foreground">notifications</div>
+              <div className="mt-3 text-lg font-semibold text-emerald-500">{pack.price}</div>
+              <div className="text-xs text-muted-foreground">{pack.perNotification}/ea</div>
             </StaggerItem>
           ))}
         </StaggerContainer>
       </Section>
 
       {/* FAQ */}
-      <Section className="border-t border-border" pattern="grid">
+      <Section className="pb-24">
         <ScrollReveal>
-          <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-              Frequently Asked Questions
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Everything you need to know about ArriveSync pricing.
-            </p>
+          <div className="mx-auto max-w-3xl text-center mb-12">
+            <h2 className="text-3xl font-bold tracking-tight">Frequently Asked Questions</h2>
+            <p className="mt-4 text-muted-foreground">Everything you need to know about ArriveSync pricing.</p>
           </div>
         </ScrollReveal>
-
-        <div className="mx-auto mt-12 max-w-3xl">
-          <StaggerContainer className="flex flex-col gap-3" staggerDelay={0.05}>
-            {faqs.map((faq, index) => (
-              <StaggerItem key={index}>
-                <div className="rounded-xl border border-border bg-card transition-all hover:border-primary/20">
-                  <button
-                    onClick={() =>
-                      setOpenFaq(openFaq === index ? null : index)
-                    }
-                    className="flex w-full items-center justify-between px-6 py-4 text-left"
-                    aria-expanded={openFaq === index}
-                  >
-                    <span className="pr-4 text-sm font-semibold text-foreground">
-                      {faq.question}
-                    </span>
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      className={cn(
-                        "h-4 w-4 shrink-0 text-muted-foreground transition-transform",
-                        openFaq === index && "rotate-180"
-                      )}
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                  </button>
-                  {openFaq === index && (
-                    <div className="border-t border-border px-6 py-4">
-                      <p className="text-sm leading-relaxed text-muted-foreground">
-                        {faq.answer}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+        <div className="mx-auto max-w-2xl divide-y divide-border">
+          {faqs.map((faq, index) => (
+            <div key={index}>
+              <button
+                onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                className="flex w-full items-center justify-between px-6 py-4 text-left"
+                aria-expanded={openFaq === index}
+              >
+                <span className="font-medium">{faq.question}</span>
+                <span className="ml-4 shrink-0 text-muted-foreground">{openFaq === index ? "\u2212" : "+"}</span>
+              </button>
+              {openFaq === index && (
+                <div className="px-6 pb-4 text-sm text-muted-foreground">{faq.answer}</div>
+              )}
+            </div>
+          ))}
         </div>
       </Section>
 
       {/* CTA */}
-      <Section className="border-t border-border">
+      <Section className="pb-32">
         <ScrollReveal>
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-balance text-3xl font-bold tracking-tight text-foreground">
-              Ready to Get Started?
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Join the waitlist and lock in early-adopter pricing.
-            </p>
-            <Link
-              href="/#waitlist"
-              className="mt-8 inline-flex items-center rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30"
-            >
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight">Ready to Get Started?</h2>
+            <p className="mt-4 text-muted-foreground">Join the waitlist and lock in early-adopter pricing.</p>
+            <Link href="/#waitlist" className="mt-8 inline-flex rounded-lg bg-emerald-500 px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-emerald-600">
               Get Early Access
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                className="ml-2 h-4 w-4"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
             </Link>
           </div>
         </ScrollReveal>
