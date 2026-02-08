@@ -15,7 +15,7 @@ const tiers = [
     period: "/mo",
     description: "Perfect for trying things out",
     features: [
-      "100 notifications/mo",
+      "150 notifications/mo",
       "1 user",
       "Basic SMS notifications",
       "Standard tracking page",
@@ -24,14 +24,14 @@ const tiers = [
   },
   {
     name: "Pro",
-    price: "$150",
+    price: "$149",
     period: "/mo",
     description: "For growing service businesses",
     features: [
       "500 notifications/mo",
       "5 users",
       "CRM integrations",
-      "CASCADE\u2122 delay propagation",
+      "CascadeSync\u2122 delay propagation",
       "Custom branding",
       "Email support",
     ],
@@ -39,14 +39,14 @@ const tiers = [
   },
   {
     name: "Business",
-    price: "$350",
+    price: "$349",
     period: "/mo",
     description: "For multi-crew operations",
     features: [
-      "1,400 notifications/mo",
+      "1,500 notifications/mo",
       "15 users",
       "Everything in Pro",
-      "Weather-aware alerts",
+      "WeatherSync\u2122 alerts",
       "Priority support",
       "Analytics dashboard",
     ],
@@ -54,11 +54,11 @@ const tiers = [
   },
   {
     name: "Enterprise",
-    price: "$700",
+    price: "$699",
     period: "/mo",
     description: "For large fleet operations",
     features: [
-      "3,500 notifications/mo",
+      "4,000 notifications/mo",
       "Unlimited users",
       "Everything in Business",
       "White-label branding",
@@ -76,10 +76,10 @@ const comparisonFeatures = [
     features: [
       {
         name: "SMS notifications/mo",
-        free: "100",
+        free: "150",
         pro: "500",
-        business: "1,400",
-        enterprise: "3,500",
+        business: "1,500",
+        enterprise: "4,000",
       },
       {
         name: "Custom notification templates",
@@ -153,14 +153,14 @@ const comparisonFeatures = [
     category: "Advanced Features",
     features: [
       {
-        name: "CASCADE\u2122 delay propagation",
+        name: "CascadeSync\u2122 delay propagation",
         free: false,
         pro: true,
         business: true,
         enterprise: true,
       },
       {
-        name: "Weather-aware scheduling",
+        name: "WeatherSync\u2122 scheduling",
         free: false,
         pro: false,
         business: true,
@@ -258,9 +258,9 @@ const faqs = [
       "No. There are no setup fees, no contracts, and no hidden charges. You can start with the Free plan and upgrade when you're ready.",
   },
   {
-    question: "What is CASCADE\u2122?",
+    question: "What is CascadeSync\u2122?",
     answer:
-      "CASCADE is our proprietary delay propagation system. When one job runs late, CASCADE automatically recalculates and updates the ETAs for all downstream customers, so nobody is left waiting without notice.",
+      "CascadeSync is our proprietary delay propagation system. When one job runs late, CascadeSync automatically recalculates and updates the ETAs for all downstream customers, so nobody is left waiting without notice.",
   },
   {
     question: "Do my customers need to download an app?",
